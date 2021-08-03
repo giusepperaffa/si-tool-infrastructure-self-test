@@ -1,0 +1,4 @@
+# =========================
+# Infrastructure Dictionary
+# =========================
+InfrastructureDict = {'service': 'aws-ruby-sinatra-dynamodb-api', 'frameworkVersion': '2', 'custom': {'tableName': 'users-table-${self:provider.stage}'}, 'provider': {'name': 'aws', 'runtime': 'ruby2.7', 'lambdaHashingVersion': '20201221', 'apiGateway': {'shouldStartNameWithService': True}, 'stage': 'dev', 'iam': {'role': {'statements': [{'Effect': 'Allow', 'Action': ['dynamodb:Query', 'dynamodb:Scan', 'dynamodb:GetItem', 'dynamodb:PutItem', 'dynamodb:UpdateItem', 'dynamodb:DeleteItem'], 'Resource': ['arn:aws:dynamodb:::table/TABLE_NAME']}]}}, 'environment': {'USERS_TABLE': '${self:custom.tableName}'}}, 'functions': {'api': {'handler': 'rack_adapter.handler', 'events': [{'http': {'path': '/', 'method': 'ANY'}}, {'http': {'path': '/{proxy+}', 'method': 'ANY'}}]}}, 'plugins': ['serverless-rack']}
